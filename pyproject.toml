@@ -1,3 +1,63 @@
+[tool.black]
+target-version = ["py312"]
+line-length = 85
+
+[tool.isort]
+lines_between_types = 1
+combine_as_imports = true
+sections = [
+    "FUTURE",
+    "STDLIB",
+    "FIRSTPARTY",
+    "THIRDPARTY",
+    "AIRFLOW",
+    "LOCALFOLDER",
+]
+known_airflow = ["airflow"]
+lines_after_imports = 2
+multi_line_output = 3
+use_parentheses = true
+extra_standard_library = ["typing_extensions"]
+known_third_party = [
+    "pydantic",
+    "pydantic-settings",
+    "fastapi",
+    "starlette",
+    "httpx",
+]
+known_local_folder = [
+    "src",
+    "tests",
+]
+src_paths = ["."]
+line_length = 85
+include_trailing_comma = true
+split_on_trailing_comma = true
+skip = [".gitignore", ".dockerignore"]
+
+[tool.flake8]
+exclude = [".git", ".idea", "__pycache__", "venv",]
+max-line-length = 85
+count = true
+statistics = true
+max-complexity = 8
+no-print-logs = true
+per-file-ignores = [
+    "tests/*test*:ANN201,TAE001",  # аннотации возвращаемых типов тестов
+]
+unused-arguments-ignore-abstract-functions = true
+unused-arguments-ignore-dunder = true
+
+[tool.mypy]
+files = ["."]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true
+disallow_incomplete_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests/*"
+
 [tool.poetry]
 name = "pythonproject"
 version = "0.1.0"
@@ -14,3 +74,21 @@ python = "^3.12"
 fastapi = {extras = ["standart"], version = "^0.115.4"}
 sqlalchemy = "^2.0.36"
 punq = "^0.7.0"
+alembic = "^1.14.0"
+pydantic-settings = "^2.6.1"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.13.0"
+black = "^24.10.0"
+flake8 = "^7.1.1"
+pytest = "^8.3.3"
+pytest-asyncio = "^0.24.0"
+isort = "^5.13.2"
+flake8-bugbear = "^24.10.31"
+flake8-black = "^0.3.6"
+flake8-print = "^5.0.0"
+flake8-return = "^1.2.0"
+flake8-useless-assert = "^0.4.4"
+flake8-unused-arguments = "^0.0.13"
+flake8-comprehensions = "^3.16.0"
+flake8-isort = "^6.1.1"
