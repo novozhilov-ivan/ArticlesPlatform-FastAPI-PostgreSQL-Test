@@ -22,7 +22,7 @@ class PostgreSQLSettings(BaseSettings):
         port = values.get("postgres_port")
         db_name = values.get("postgres_db")
         values["postgres_db_url"] = (
-            f"postgresql+psycopg2://{username}:{password}@{host}:{port}/{db_name}"
+            f"postgresql+asyncpg://{username}:{password}@{host}:{port}/{db_name}"
         )
 
         return values
@@ -34,6 +34,6 @@ class PostgreSQLSettings(BaseSettings):
     @property
     def test_postgres_url(self) -> str:
         return (
-            f"postgresql+psycopg2://{self.postgres_user}:{self.postgres_password}"
+            f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}"
             f"@{self.postgres_host}:{self.postgres_port}/{self.test_postgres_db}"
         )
