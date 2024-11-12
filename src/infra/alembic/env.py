@@ -11,7 +11,7 @@ from sqlalchemy.util import await_only
 from sqlalchemy.util.concurrency import in_greenlet
 
 from src.infra.orm_models.base import ORMBase
-
+from src.project.settings import settings
 
 config = context.config
 
@@ -21,6 +21,8 @@ if config.config_file_name is not None:
 
 
 target_metadata = ORMBase.metadata
+
+config.set_main_option("sqlalchemy.url", settings.postgres_db_url)
 
 
 def run_migrations_offline() -> None:
