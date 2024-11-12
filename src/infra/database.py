@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 from dataclasses import InitVar, dataclass, field
-from typing import Any, Generator
+from typing import Any, AsyncGenerator
 
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import (
@@ -30,7 +30,7 @@ class Database:
         )
 
     @asynccontextmanager
-    async def get_async_session(self) -> Generator[AsyncSession, Any]:
+    async def get_async_session(self) -> AsyncGenerator[AsyncSession, Any]:
         async_session: AsyncSession = self._async_session()
         try:
             yield async_session
