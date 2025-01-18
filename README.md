@@ -1,5 +1,17 @@
-# Articles
-# FastApi + PostgreSQL Application 
+# Articles Platform
+
+ArticlesPlatform — это платформа для размещения и чтения статей, разработанная с использованием FastAPI и PostgreSQL. Пользователи могут просматривать список статей, читать их подробно и публиковать новые статьи.
+
+![Task Image](task.jpg)
+
+## Стек технологий
+
+- **Python**
+- **FastAPI**
+- **PostgreSQL**
+- **SQLAlchemy**
+- **Pydantic**
+- **Docker**
 
 
 ## Requirements
@@ -15,7 +27,7 @@
 1. **Clone the repository:**
 
    ```shell
-   git clone https://github.com/novozhilov-ivan/articles
+   https://github.com/novozhilov-ivan/ArticlesPlatform-FastAPI-PostgreSQL-Test.git
    ```
    ```shell
    cd articles
