@@ -1,5 +1,5 @@
 [tool.black]
-target-version = ["py312"]
+target-version = ["py313"]
 line-length = 85
 
 [tool.isort]
@@ -50,7 +50,7 @@ unused-arguments-ignore-dunder = true
 
 [tool.mypy]
 files = ["."]
-python_version = "3.12"
+python_version = "3.13"
 ignore_missing_imports = true
 check_untyped_defs = true
 disallow_incomplete_defs = true
@@ -59,18 +59,19 @@ disallow_incomplete_defs = true
 module = "tests/*"
 
 [tool.poetry]
-name = "pythonproject"
+name = "ArticlesPlatform-FastAPI-PostgreSQL-Test"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
 readme = "README.md"
+packages = [{include = "ArticlesPlatform-FastAPI-PostgreSQL-Test"}]
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.13"
 fastapi = {extras = ["standart"], version = "^0.115.4"}
 sqlalchemy = {extras = ["asyncio"], version = "^2.0.36"}
 punq = "^0.7.0"
