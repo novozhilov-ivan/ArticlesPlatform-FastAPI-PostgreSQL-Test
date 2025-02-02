@@ -1,8 +1,11 @@
-# Articles Platform
+<h1 align="center">Articles Platform</h1>
 
 ArticlesPlatform — это платформа для размещения и чтения статей, разработанная с использованием FastAPI и PostgreSQL. Пользователи могут просматривать список статей, читать их подробно и публиковать новые статьи.
 
-[Смотреть задание](https://github.com/novozhilov-ivan/ArticlesPlatform-FastAPI-PostgreSQL-Test/blob/main/task.jpg)
+## Дополнительные материалы
+
+- [Задание ](task.md)
+- [Todo list ](todo.md)
 
 ## Стек технологий
 
