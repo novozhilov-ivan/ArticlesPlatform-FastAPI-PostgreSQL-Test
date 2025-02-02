@@ -6,7 +6,7 @@ from src.domain.entities.user import UserEntity
 
 
 @pytest.fixture(scope="session")
-def user():
+def user() -> UserEntity:
     return UserEntity(
         oid=uuid4(),
         nickname="some_nickname",

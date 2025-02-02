@@ -1,7 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from uuid import UUID
-
-from black.cache import field
 
 from src.domain.entities.base import BaseEntity
 from src.domain.entities.category import CategoryEntity

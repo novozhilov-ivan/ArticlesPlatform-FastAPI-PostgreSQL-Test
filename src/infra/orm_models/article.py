@@ -9,7 +9,7 @@ from src.infra.orm_models.mixins import MixinUpdatedAt, MixinUUIDOid
 from src.infra.orm_models.user import ORMUser
 
 
-class ORMArticle(ORMBase, MixinUUIDOid, MixinUpdatedAt):
+class ORMArticle(ORMBase, MixinUUIDOid, MixinUpdatedAt):  # type: ignore[misc]
     __tablename__ = "articles"
 
     owner_oid: Mapped[UUID] = mapped_column(ForeignKey(column="users.oid"))

@@ -1,12 +1,13 @@
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from dataclasses import InitVar, dataclass, field
-from typing import Any, AsyncGenerator
+from dataclasses import dataclass, field, InitVar
+from typing import Any
 
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import (
+    async_sessionmaker,
     AsyncEngine,
     AsyncSession,
-    async_sessionmaker,
     create_async_engine,
 )
 

@@ -19,5 +19,3 @@ RUN apt update -y && \
     && rm -rf /var/lib/apt/lists/* requirements.dev.txt
 
 FROM python:3.12.3-slim AS dev-runtime
-
-

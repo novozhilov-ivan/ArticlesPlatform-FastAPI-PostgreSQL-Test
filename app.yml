@@ -1,14 +1,14 @@
+---
 networks:
   backend:
     driver: bridge
-
 services:
   api:
-    container_name: api
+    container_name: articles-platform
     build:
       context: .
       dockerfile: Dockerfile
-    image: sleep-diary-app-image
+    image: articles-platform-app-image
     restart: always
     depends_on:
       postgres:
@@ -19,9 +19,9 @@ services:
       - path: .env
         required: false
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-db_sleep_diary}
-      POSTGRES_USER: ${POSTGRES_USER:-user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+      POSTGRES_DB: ${POSTGRES_DB:-articles_db}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
       POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
       POSTGRES_PORT: ${POSTGRES_PORT:-5432}
       POSTGRES_DB_URL: ${POSTGRES_DB_URL:-}

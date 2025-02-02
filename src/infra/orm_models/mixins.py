@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from datetime import datetime
-from typing_extensions import Self
 from uuid import UUID, uuid4
 
 from sqlalchemy import func
@@ -32,9 +31,9 @@ class MixinUpdatedAt(MixinCreatedAtOnly):
     )
 
     @property
-    def created_date(self: Self) -> datetime:
+    def created_date(self) -> datetime:
         return self.created_at.replace(microsecond=0, tzinfo=None)
 
     @property
-    def updated_date(self: Self) -> datetime:
+    def updated_date(self) -> datetime:
         return self.updated_at.replace(microsecond=0, tzinfo=None)
