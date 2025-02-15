@@ -3,27 +3,27 @@ networks:
   backend:
     driver: bridge
 services:
-  api:
+  articles-platform:
     container_name: articles-platform
     build:
       context: .
       dockerfile: Dockerfile
-    image: articles-platform-app-image
+    image: articles-platform-image
     restart: always
     depends_on:
       postgres:
         condition: service_healthy
     env_file:
-      - path: .env.example
+      - path: .default.env
         required: false
       - path: .env
         required: false
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-articles_db}
-      POSTGRES_USER: ${POSTGRES_USER:-admin}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
       POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
       POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
       POSTGRES_DB_URL: ${POSTGRES_DB_URL:-}
     ports:
       - "8000:8000"
@@ -34,9 +34,4 @@ services:
     networks:
       - backend
     entrypoint:
-      - uvicorn
-      - --factory
-      - src.application.api.main:create_app
-      - --host=0.0.0.0
-      - --port=8000
-      - --reload
+      - pwd

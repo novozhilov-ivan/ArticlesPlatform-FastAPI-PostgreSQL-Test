@@ -11,19 +11,20 @@ services:
     image: postgres:16
     restart: always
     healthcheck:
-      test: [CMD-SHELL, "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 3s
       timeout: 3s
       retries: 5
+      start_period: 5s
     env_file:
-      - path: .env.example
-        required: false
+      - path: .default.env
+        required: true
       - path: .env
         required: false
     environment:
+      POSTGRES_DB: ${POSTGRES_DB:-articles_db}
       POSTGRES_USER: ${POSTGRES_USER:-admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-pass}
-      POSTGRES_DB: ${POSTGRES_DB:-articles_db}
     ports:
       - "5432:5432"
     volumes:

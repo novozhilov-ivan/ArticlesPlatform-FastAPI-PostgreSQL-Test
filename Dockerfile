@@ -1,21 +1,45 @@
-FROM python:3.12.3-slim AS builder
+ARG IMAGE=python:3.13.2-slim-bullseye
+
+FROM $IMAGE AS builder
 
 COPY poetry.lock pyproject.toml ./
 
-RUN python -m pip install poetry==1.8.5 && \
-    poetry export -o requirements.prod.txt --without-hashes && \
-    poetry export --with=dev -o requirements.dev.txt --without-hashes
+RUN : \
+    && python -m pip install poetry==2.0.1 \
+    && poetry self add poetry-plugin-export \
+    && poetry export \
+      --output=requirements.prod.txt\
+      --without-hashes \
+    && poetry export \
+      --with=dev \
+      --output=requirements.dev.txt \
+      --without-hashes
 
-FROM python:3.12.3-slim AS dev
+FROM $IMAGE AS dev
 
 WORKDIR /app
 COPY --from=builder requirements.dev.txt /app
 
-RUN apt update -y && \
-    apt install --no-install-recommends -y \
-    python3-dev && \
-    pip install --upgrade pip --no-cache-dir --user -r requirements.dev.txt && \
-    apt clean \
-    && rm -rf /var/lib/apt/lists/* requirements.dev.txt
+RUN : \
+    && apt update \
+    && apt install -y --no-install-recommends \
+      python3-dev  \
+    && pip install \
+      --upgrade pip \
+      --no-cache-dir \
+      --user \
+      -r requirements.dev.txt \
+    && apt clean \
+    && rm -rf \
+      /var/lib/apt/lists/* \
+      requirements.dev.txt
 
-FROM python:3.12.3-slim AS dev-runtime
+FROM $IMAGE AS dev-runtime
+
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ENV PATH=/root/.local/bin:$PATH
+
+COPY --from=dev /root/.local /root/.local
+COPY src/ /app/src
+COPY tests/ /app/tests
+COPY alembic.ini /app/alembic.ini
