@@ -12,3 +12,5 @@ up: build
 	docker compose -f postgres.yml -f articles_platform.yml up -d
 down:
 	docker compose -f articles_platform.yml -f postgres.yml down
+sh:
+	docker exec -it articles_platform bash
