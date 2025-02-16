@@ -9,7 +9,8 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 from sqlalchemy.util import await_only
 from sqlalchemy.util.concurrency import in_greenlet
 
-from src.infra.orm_models.base import ORMBase
+from src.gateways.postgresql.models import *  # noqa F401
+from src.gateways.postgresql.models.base import ORMBase
 from src.project.settings import settings
 
 
