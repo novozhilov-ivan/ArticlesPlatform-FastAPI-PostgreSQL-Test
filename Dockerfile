@@ -8,7 +8,7 @@ RUN : \
     && python -m pip install poetry==2.0.1 \
     && poetry self add poetry-plugin-export \
     && poetry export \
-      --output=requirements.prod.txt\
+      --output=requirements.prod.txt \
       --without-hashes \
     && poetry export \
       --with=dev \
