@@ -42,7 +42,7 @@ class ICategoriesRepository(ABC):
 
 class IUsersRepository(ABC):
     @abstractmethod
-    async def get_by_nickname(self, nickname: str) -> UserEntity:
+    async def get_by_nickname(self, nickname: str) -> UserEntity | None:
         raise NotImplementedError
 
     @abstractmethod

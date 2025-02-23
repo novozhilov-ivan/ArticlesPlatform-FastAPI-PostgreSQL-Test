@@ -12,9 +12,16 @@ class UserEntity(BaseEntity):
     status: UserStatus = UserStatus.active
 
     def __eq__(self, other: object) -> bool:
+        if isinstance(other, str):
+            return self.__str__() == other.lower()
         if not isinstance(other, type(self)):
             return NotImplemented
         return self.nickname.lower() == other.nickname.lower()
 
     def __hash__(self) -> int:
         return hash(self.nickname.lower())
+
+    def __str__(self) -> str:
+        return self.nickname.lower()
+
+    __repr__ = __str__
