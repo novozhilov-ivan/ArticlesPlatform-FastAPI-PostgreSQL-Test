@@ -1,0 +1,18 @@
+[run]
+branch = True
+source = src
+omit =
+    src/**/__init__.py
+    src/domain/repositories/interfaces.py
+    src/domain/specifications/interfaces.py
+    *alembic*
+
+[report]
+show_missing = True
+skip_covered = False
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:
+
+[html]
+directory = coverage_html_report
