@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from collections.abc import Sequence
-from dataclasses import dataclass
 from uuid import UUID
 
 from src.domain.entities.article import ArticleEntity
@@ -9,8 +8,7 @@ from src.domain.entities.comment import CommentEntity
 from src.domain.entities.user import UserEntity
 
 
-@dataclass
-class IArticleRepository(ABC):
+class IArticlesRepository(ABC):
     @abstractmethod
     async def create(self, article: ArticleEntity) -> None:
         raise NotImplementedError
@@ -28,7 +26,6 @@ class IArticleRepository(ABC):
         raise NotImplementedError
 
 
-@dataclass
 class ICategoriesRepository(ABC):
     @abstractmethod
     async def create(self, category: CategoryEntity) -> None:
@@ -43,7 +40,6 @@ class ICategoriesRepository(ABC):
         raise NotImplementedError
 
 
-@dataclass
 class IUsersRepository(ABC):
     @abstractmethod
     async def get_by_nickname(self, nickname: str) -> UserEntity:
@@ -54,7 +50,6 @@ class IUsersRepository(ABC):
         raise NotImplementedError
 
 
-@dataclass
 class ICommentsRepository(ABC):
     @abstractmethod
     async def get_all_article_comments_by_article_oid(

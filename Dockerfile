@@ -23,7 +23,7 @@ COPY --from=builder requirements.dev.txt /app
 RUN : \
     && apt update \
     && apt install -y --no-install-recommends \
-      python3-dev  \
+      python3-dev \
     && pip install \
       --upgrade pip \
       --no-cache-dir \
@@ -36,8 +36,9 @@ RUN : \
 
 FROM $IMAGE AS dev-runtime
 
-ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
-ENV PATH=/root/.local/bin:$PATH
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH=/root/.local/bin:$PATH
 
 COPY --from=dev /root/.local /root/.local
 COPY src/ /app/src

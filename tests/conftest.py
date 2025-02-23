@@ -10,5 +10,5 @@ def user() -> UserEntity:
     return UserEntity(
         oid=uuid4(),
         nickname="some_nickname",
-        password="some_password",
+        hashed_password="some_password",
     )
