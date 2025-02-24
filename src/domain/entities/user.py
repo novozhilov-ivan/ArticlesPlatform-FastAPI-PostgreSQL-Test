@@ -16,10 +16,10 @@ class UserEntity(BaseEntity):
             return self.__str__() == other.lower()
         if not isinstance(other, type(self)):
             return NotImplemented
-        return self.nickname.lower() == other.nickname.lower()
+        return self.__str__() == other.__str__()
 
     def __hash__(self) -> int:
-        return hash(self.nickname.lower())
+        return hash(self.__str__())
 
     def __str__(self) -> str:
         return self.nickname.lower()

@@ -18,3 +18,18 @@ def test_user_equal_by_lower_nickname():
     added_user, *_ = users_set
 
     assert added_user.oid == user_1.oid
+
+
+def test_user_compare_with_other():
+    other = 42
+    user = UserEntity(nickname=str(other), hashed_password="1")
+    result = user.__eq__(other)
+
+    assert result is NotImplemented
+    assert user != other
+
+
+def test_user_compare_with_str():
+    nickname = "S0mE_n1cKnAmE"
+    user = UserEntity(nickname=nickname, hashed_password="1")
+    assert user == nickname
