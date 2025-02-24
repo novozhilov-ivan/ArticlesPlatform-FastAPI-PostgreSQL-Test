@@ -19,3 +19,18 @@ def test_category_equal_by_name():
 
     received_category, *_ = categories_set
     assert received_category.oid == category_1.oid
+
+
+def test_category_compare_with_other():
+    other = 42
+    category = CategoryEntity(name=str(other))
+    result = category.__eq__(other)
+
+    assert result is NotImplemented
+    assert category != other
+
+
+def test_category_compare_with_str():
+    name = "S0mE_n1cKnAmE"
+    category = CategoryEntity(name=name)
+    assert category == name
