@@ -35,13 +35,11 @@ class PasswordLengthSpec(PasswordSpec, ISpecification):
 @dataclass
 class PasswordCompositeSpec(PasswordSpec, ISpecification):
     plain_password: str
-    _specifications: list[type[PasswordSpec]] = field(
-        default_factory=lambda: [
-            PasswordLengthSpec,
-        ],
+    _specifications: tuple[type[PasswordSpec], ...] = field(
+        default_factory=lambda: (PasswordLengthSpec,),
     )
     _on_fail_message_template: ClassVar[str] = (
-        "Some password format restrictions are not passed.\n"
+        "Password format restrictions are not passed.\n"
     )
 
     def _init_all_specifications(self) -> Iterable:
