@@ -1,20 +1,8 @@
-from abc import ABC, abstractmethod
 from collections.abc import Iterable
 from dataclasses import dataclass, field
 from typing import ClassVar
 
-from src.domain.specifications.interfaces import ISpecification
-
-
-@dataclass
-class PasswordSpec(ISpecification, ABC):
-    plain_password: str
-    _on_fail_message_template: ClassVar[str]
-
-    @property
-    @abstractmethod
-    def on_fail_message(self) -> str:
-        raise NotImplementedError
+from src.domain.specifications.interfaces import ISpecification, PasswordSpec
 
 
 @dataclass
