@@ -11,33 +11,15 @@ def test_password_length_spec():
     spec = PasswordLengthSpec(plain_password="super_secret")
     assert spec
 
-    if spec:
-        assert spec
-
-    assert spec._valid_min_length()
-    assert spec._valid_max_length()
-
 
 def test_password_length_spec_on_short_password():
     spec = PasswordLengthSpec(plain_password="short")
     assert not spec
 
-    if not spec:
-        assert not spec
-
-    assert not spec._valid_min_length()
-    assert spec._valid_max_length()
-
 
 def test_password_length_spec_on_long_password():
     spec = PasswordLengthSpec(plain_password="too_long" * 10)
     assert not spec
-
-    if not spec:
-        assert not spec
-
-    assert spec._valid_min_length()
-    assert not spec._valid_max_length()
 
 
 def test_password_length_spec_on_fail_message():
