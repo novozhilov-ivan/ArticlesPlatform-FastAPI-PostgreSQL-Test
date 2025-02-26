@@ -16,6 +16,19 @@ def password_hasher() -> PasswordHasherService:
     return PasswordHasherService()
 
 
+@pytest.fixture(scope="session")
+def plain_password() -> str:
+    return "plain_password"
+
+
+@pytest.fixture(scope="session")
+def hashed_password(
+    password_hasher: PasswordHasherService,
+    plain_password: str,
+) -> str:
+    return password_hasher.hash_password(plain_password)
+
+
 @pytest.fixture(scope="package")
 def user_registration_service(
     users_repository: IUsersRepository,
