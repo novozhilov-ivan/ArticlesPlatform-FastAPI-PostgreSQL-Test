@@ -9,7 +9,7 @@ ArticlesPlatform — это платформа для размещения и ч
 
 ## Стек технологий
 
-- **Python 3.12**
+- **Python 3.13**
 - **FastAPI**
 - **PostgreSQL**
 - **SQLAlchemy**
