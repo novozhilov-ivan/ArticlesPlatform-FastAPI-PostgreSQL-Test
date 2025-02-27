@@ -2,8 +2,8 @@ from dataclasses import dataclass
 
 from src.domain.entities.user import UserEntity
 from src.domain.exceptions.user_registration import (
-    PasswordTooWeakException,
-    UserNicknameAlreadyExistException,
+    NicknameAlreadyExistException,
+    PasswordConstraintException,
 )
 from src.domain.repositories.interfaces import IUsersRepository
 from src.domain.services.password_hasher import PasswordHasherService
@@ -17,16 +17,16 @@ class UserRegistrationService:
 
     async def _validate_nickname(self, nickname: str) -> None:
         if await self.users_repository.get_by_nickname(nickname):
-            raise UserNicknameAlreadyExistException(nickname)
+            raise NicknameAlreadyExistException(nickname)
 
     @staticmethod
-    async def _validate_password(plain_password: str) -> None:
+    def _validate_password(plain_password: str) -> None:
         if not (specification := PasswordCompositeSpec(plain_password)):
-            raise PasswordTooWeakException(meta=specification.on_fail_message)
+            raise PasswordConstraintException(meta=specification.on_fail_message)
 
     async def register_user(self, nickname: str, plain_password: str) -> None:
         await self._validate_nickname(nickname)
-        await self._validate_password(plain_password)
+        self._validate_password(plain_password)
 
         await self.users_repository.create(
             user=UserEntity(

@@ -11,7 +11,7 @@ class ArticlePlatformRegistrationException(ArticlePlatformException):
 
 
 @dataclass
-class UserNicknameAlreadyExistException(ArticlePlatformRegistrationException):
+class NicknameAlreadyExistException(ArticlePlatformRegistrationException):
     nickname: str
 
     @property
@@ -20,7 +20,7 @@ class UserNicknameAlreadyExistException(ArticlePlatformRegistrationException):
 
 
 @dataclass
-class PasswordTooWeakException(ArticlePlatformRegistrationException):
+class PasswordConstraintException(ArticlePlatformRegistrationException):
     meta: str
 
     @property
