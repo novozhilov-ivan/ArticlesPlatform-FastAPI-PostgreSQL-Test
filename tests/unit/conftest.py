@@ -29,7 +29,7 @@ def hashed_password(
     return password_hasher.hash_password(plain_password)
 
 
-@pytest.fixture(scope="package")
+@pytest.fixture
 def user_registration_service(
     users_repository: IUsersRepository,
     password_hasher: PasswordHasherService,
