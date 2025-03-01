@@ -18,25 +18,17 @@ class IArticlesRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_all_titles(self) -> Sequence[ArticleEntity]:
+    async def list(self, page: int, offset: int) -> set[ArticleEntity]:
         raise NotImplementedError
 
     @abstractmethod
-    async def delete_by_oid(self, oid: UUID) -> Sequence[ArticleEntity]:
+    async def delete_by_oid(self, oid: UUID) -> None:
         raise NotImplementedError
 
 
 class ICategoriesRepository(ABC):
     @abstractmethod
-    async def create(self, category: CategoryEntity) -> None:
-        raise NotImplementedError
-
-    @abstractmethod
-    async def create_many(self, categories: Sequence[CategoryEntity]) -> None:
-        raise NotImplementedError
-
-    @abstractmethod
-    async def get_all(self) -> Sequence[CategoryEntity]:
+    async def create_many(self, *categories: CategoryEntity) -> None:
         raise NotImplementedError
 
 
