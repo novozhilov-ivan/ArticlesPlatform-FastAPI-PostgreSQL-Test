@@ -25,7 +25,8 @@ class UserAuthenticationService:
             raise UserIsBannedException(nickname)
 
         if not self.password_hasher.verify_password(
-            plain_password=password, hashed_password=user.password
+            plain_password=password,
+            hashed_password=user.password,
         ):
             raise InvalidCredentialsException(nickname)
 
