@@ -27,6 +27,14 @@ sh:
 	docker exec -it \
 		articles_platform \
 		bash
+tests: up
+	docker compose \
+		-f articles_platform.yml \
+		-f postgres.yml \
+		run \
+		--rm \
+		--entrypoint="pytest tests/" \
+		articles-platform
 all:
 	pytest
 all-cov:

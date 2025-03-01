@@ -44,3 +44,4 @@ COPY --from=dev /root/.local /root/.local
 COPY src/ /app/src
 COPY tests/ /app/tests
 COPY alembic.ini /app/alembic.ini
+COPY pytest.ini /app/pytest.ini
