@@ -14,9 +14,9 @@ async def test_register_user_success(
     users_repository: IUsersRepository,
     user: UserEntity,
 ):
-    await user_registration_service.register_user(
+    await user_registration_service.register(
         nickname=user.nickname,
-        plain_password=user.hashed_password,
+        plain_password=user.password,
     )
 
     assert await users_repository.get_by_nickname(user.nickname)
@@ -30,9 +30,9 @@ async def test_register_user_by_exist_nickname_exception(
     await users_repository.create(user)
 
     with pytest.raises(NicknameAlreadyExistException):
-        await user_registration_service.register_user(
+        await user_registration_service.register(
             nickname=user.nickname,
-            plain_password=user.hashed_password,
+            plain_password=user.password,
         )
 
 
@@ -49,7 +49,7 @@ async def test_register_user_password_constraint_exception(
     bad_password: str,
 ):
     with pytest.raises(PasswordConstraintException):
-        await user_registration_service.register_user(
+        await user_registration_service.register(
             nickname=user.nickname,
             plain_password=bad_password,
         )

@@ -24,13 +24,13 @@ class UserRegistrationService:
         if not (specification := PasswordCompositeSpec(plain_password)):
             raise PasswordConstraintException(meta=specification.on_fail_message)
 
-    async def register_user(self, nickname: str, plain_password: str) -> None:
+    async def register(self, nickname: str, plain_password: str) -> None:
         await self._validate_nickname(nickname)
         self._validate_password(plain_password)
 
         await self.users_repository.create(
             user=UserEntity(
                 nickname=nickname,
-                hashed_password=self.password_hasher.hash_password(plain_password),
+                password=self.password_hasher.hash_password(plain_password),
             ),
         )
