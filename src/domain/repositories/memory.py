@@ -6,13 +6,13 @@ from src.domain.repositories.interfaces import IUsersRepository
 
 @dataclass
 class MemoryUserRepository(IUsersRepository):
-    storage: set[UserEntity] = field(default_factory=set)
+    _storage: set[UserEntity] = field(default_factory=set)
 
     async def create(self, user: UserEntity) -> None:
-        if user not in self.storage:
-            self.storage.add(user)
+        if user not in self._storage:
+            self._storage.add(user)
 
     async def get_by_nickname(self, nickname: str) -> UserEntity | None:
-        if nickname not in self.storage:
+        if nickname not in self._storage:
             return None
-        return next(user for user in self.storage if user == nickname)
+        return next(user for user in self._storage if user == nickname)

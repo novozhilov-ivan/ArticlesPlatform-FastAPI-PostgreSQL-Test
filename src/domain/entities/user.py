@@ -7,7 +7,7 @@ from src.domain.enums import UserRoles, UserStatus
 @dataclass(eq=False, kw_only=True)
 class UserEntity(BaseEntity):
     nickname: str
-    hashed_password: str
+    password: str
     role: UserRoles = UserRoles.user
     status: UserStatus = UserStatus.active
 
