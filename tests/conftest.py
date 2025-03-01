@@ -9,6 +9,6 @@ from src.domain.entities.user import UserEntity
 def user() -> UserEntity:
     return UserEntity(
         oid=uuid4(),
-        nickname="some_nickname",
-        hashed_password="some_password",
+        nickname="nickname",
+        password="plain_password",
     )
