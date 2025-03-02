@@ -31,6 +31,10 @@ class ICategoriesRepository(ABC):
     async def create_many(self, *categories: CategoryEntity) -> None:
         raise NotImplementedError
 
+    @abstractmethod
+    async def get_by_name(self, name: str) -> CategoryEntity | None:
+        raise NotImplementedError
+
 
 class IUsersRepository(ABC):
     @abstractmethod
