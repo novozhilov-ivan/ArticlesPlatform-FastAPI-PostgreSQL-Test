@@ -3,8 +3,12 @@ from dataclasses import replace
 import pytest
 
 from src.domain.entities.user import UserEntity
-from src.domain.repositories.interfaces import IUsersRepository
-from src.domain.repositories.memory import MemoryUserRepository
+from src.domain.repositories.interfaces import (
+    ICategoriesRepository,
+    IUsersRepository,
+)
+from src.domain.repositories.memory_categories import MemoryCategoriesRepository
+from src.domain.repositories.memory_users import MemoryUsersRepository
 from src.domain.services.password_hasher import PasswordHasherService
 from src.domain.services.user_authentication import UserAuthenticationService
 from src.domain.services.user_registration import UserRegistrationService
@@ -12,7 +16,12 @@ from src.domain.services.user_registration import UserRegistrationService
 
 @pytest.fixture
 def users_repository() -> IUsersRepository:
-    return MemoryUserRepository()
+    return MemoryUsersRepository()
+
+
+@pytest.fixture
+def categories_repository() -> ICategoriesRepository:
+    return MemoryCategoriesRepository()
 
 
 @pytest.fixture(scope="session")
