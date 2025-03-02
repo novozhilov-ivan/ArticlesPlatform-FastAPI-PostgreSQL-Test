@@ -5,7 +5,7 @@ from src.domain.repositories.interfaces import IUsersRepository
 
 
 @dataclass
-class MemoryUserRepository(IUsersRepository):
+class MemoryUsersRepository(IUsersRepository):
     _storage: set[UserEntity] = field(default_factory=set)
 
     async def create(self, user: UserEntity) -> None:
