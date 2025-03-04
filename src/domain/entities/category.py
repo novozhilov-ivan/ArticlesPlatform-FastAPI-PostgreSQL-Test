@@ -1,11 +1,17 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING
 
 from src.domain.entities.base import BaseEntity
+
+
+if TYPE_CHECKING:
+    from src.domain.entities.article import ArticleEntity
 
 
 @dataclass(eq=False, kw_only=True)
 class CategoryEntity(BaseEntity):
     name: str
+    categories: set["ArticleEntity"] = field(default_factory=set)
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, str):
