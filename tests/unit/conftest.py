@@ -4,9 +4,11 @@ import pytest
 
 from src.domain.entities.user import UserEntity
 from src.domain.repositories.interfaces import (
+    IArticlesRepository,
     ICategoriesRepository,
     IUsersRepository,
 )
+from src.domain.repositories.memory_article import MemoryArticlesRepository
 from src.domain.repositories.memory_categories import MemoryCategoriesRepository
 from src.domain.repositories.memory_users import MemoryUsersRepository
 from src.domain.services.password_hasher import PasswordHasherService
@@ -22,6 +24,11 @@ def users_repository() -> IUsersRepository:
 @pytest.fixture
 def categories_repository() -> ICategoriesRepository:
     return MemoryCategoriesRepository()
+
+
+@pytest.fixture
+def articles_repository() -> IArticlesRepository:
+    return MemoryArticlesRepository()
 
 
 @pytest.fixture(scope="session")
