@@ -13,7 +13,7 @@ class ArticleService:
     category_repository: ICategoriesRepository
 
     async def write(self, article: ArticleEntity) -> None:
-        await self.category_repository.create_many(*article.categories)
+        await self.category_repository.create_many(article.categories)
         await self.articles_repository.create(article)
 
     async def get_list(self) -> set[ArticleEntity]:

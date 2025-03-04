@@ -8,7 +8,7 @@ from src.domain.repositories.interfaces import ICategoriesRepository
 class MemoryCategoriesRepository(ICategoriesRepository):
     _storage: set[CategoryEntity] = field(default_factory=set)
 
-    async def create_many(self, *categories: CategoryEntity) -> None:
+    async def create_many(self, categories: set[CategoryEntity]) -> None:
         for category in categories:
             if category in self._storage:
                 continue

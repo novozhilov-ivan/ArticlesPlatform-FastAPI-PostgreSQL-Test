@@ -28,7 +28,7 @@ class IArticlesRepository(ABC):
 
 class ICategoriesRepository(ABC):
     @abstractmethod
-    async def create_many(self, *categories: CategoryEntity) -> None:
+    async def create_many(self, categories: set[CategoryEntity]) -> None:
         raise NotImplementedError
 
     @abstractmethod
