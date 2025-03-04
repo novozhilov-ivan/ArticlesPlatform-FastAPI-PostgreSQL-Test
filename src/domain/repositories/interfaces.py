@@ -14,11 +14,11 @@ class IArticlesRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def get_by_oid(self, oid: UUID) -> ArticleEntity:
+    async def get_by_oid(self, oid: UUID) -> ArticleEntity | None:
         raise NotImplementedError
 
     @abstractmethod
-    async def list(self, page: int, offset: int) -> set[ArticleEntity]:
+    async def list(self) -> set[ArticleEntity]:
         raise NotImplementedError
 
     @abstractmethod

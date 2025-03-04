@@ -16,5 +16,5 @@ class ArticleService:
         await self.category_repository.create_many(*article.categories)
         await self.articles_repository.create(article)
 
-    async def get_list(self, page: int, offset: int) -> set[ArticleEntity]:
-        return await self.articles_repository.list(page, offset)
+    async def get_list(self) -> set[ArticleEntity]:
+        return await self.articles_repository.list()
