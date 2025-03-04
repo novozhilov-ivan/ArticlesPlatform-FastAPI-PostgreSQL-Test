@@ -12,9 +12,7 @@ async def test_get_by_name_category_in_empty_repository(
     assert not await categories_repository.get_by_name(category.name)
 
 
-async def test_get_by_name_exist_category_in_repository(
-    category: CategoryEntity,
-):
+async def test_get_by_name_exist_category_in_repository(category: CategoryEntity):
     categories_repository = MemoryCategoriesRepository({category})
 
     exist_category = await categories_repository.get_by_name(category.name)
