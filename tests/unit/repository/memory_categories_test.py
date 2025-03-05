@@ -44,7 +44,7 @@ async def test_create_many_categories_with_many_unique_categories(
 
     await categories_repository.create_many(unique_categories)
 
-    assert unique_categories == categories_repository._storage
+    assert unique_categories == categories_repository.storage
 
 
 async def test_create_many_is_create_category_idempotent_with_same_name_cases(
@@ -54,7 +54,7 @@ async def test_create_many_is_create_category_idempotent_with_same_name_cases(
     categories = {category for _ in range(5)}
     await categories_repository.create_many(categories)
 
-    assert len(categories_repository._storage) == 1
+    assert len(categories_repository.storage) == 1
 
 
 async def test_create_many_is_create_category_idempotent_with_diff_names_cases(
@@ -68,7 +68,7 @@ async def test_create_many_is_create_category_idempotent_with_diff_names_cases(
 
     await categories_repository.create_many(categories)
 
-    assert len(categories_repository._storage) == 1
-    exist_category, *_ = categories_repository._storage
+    assert len(categories_repository.storage) == 1
+    exist_category, *_ = categories_repository.storage
     assert exist_category == category
     assert exist_category.name == category.name

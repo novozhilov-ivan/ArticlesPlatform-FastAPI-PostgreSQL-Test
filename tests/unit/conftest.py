@@ -9,6 +9,9 @@ from src.domain.repositories.interfaces import (
     IUsersRepository,
 )
 from src.domain.repositories.memory_article import MemoryArticlesRepository
+from src.domain.repositories.memory_association import (
+    MemoryArticleCategoryAssociationsRepository,
+)
 from src.domain.repositories.memory_categories import MemoryCategoriesRepository
 from src.domain.repositories.memory_users import MemoryUsersRepository
 from src.domain.services.password_hasher import PasswordHasherService
@@ -27,8 +30,15 @@ def categories_repository() -> ICategoriesRepository:
 
 
 @pytest.fixture
-def articles_repository() -> IArticlesRepository:
-    return MemoryArticlesRepository()
+def articles_repository(
+    associations_repository: MemoryArticleCategoryAssociationsRepository,
+) -> IArticlesRepository:
+    return MemoryArticlesRepository(associations_repository=associations_repository)
+
+
+@pytest.fixture
+def associations_repository() -> MemoryArticleCategoryAssociationsRepository:
+    return MemoryArticleCategoryAssociationsRepository()
 
 
 @pytest.fixture(scope="session")
