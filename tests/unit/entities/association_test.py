@@ -9,5 +9,5 @@ def test_initialize_association_entity(
 ):
     assert ArticleCategoryAssociationEntity(
         article_oid=article.oid,
-        category_oid=category.oid,
+        category_name=category.name,
     )
