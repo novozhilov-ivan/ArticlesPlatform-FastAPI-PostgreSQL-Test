@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 @dataclass(eq=False, kw_only=True)
 class CategoryEntity(BaseEntity):
     name: str
-    categories: set["ArticleEntity"] = field(default_factory=set)
+    articles: set["ArticleEntity"] = field(default_factory=set)
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, str):
