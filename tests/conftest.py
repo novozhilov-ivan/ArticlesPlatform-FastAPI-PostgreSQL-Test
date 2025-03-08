@@ -3,6 +3,7 @@ from uuid import uuid4
 import pytest
 
 from src.domain.entities.article import ArticleEntity
+from src.domain.entities.association import ArticleCategoryAssociationEntity
 from src.domain.entities.category import CategoryEntity
 from src.domain.entities.user import UserEntity
 
@@ -27,4 +28,15 @@ def article(user: UserEntity) -> ArticleEntity:
         author_oid=user.oid,
         title="some_title",
         text="some_text",
+    )
+
+
+@pytest.fixture(scope="session")
+def association(
+    article: ArticleEntity,
+    category: CategoryEntity,
+) -> ArticleCategoryAssociationEntity:
+    return ArticleCategoryAssociationEntity(
+        article_oid=article.oid,
+        category_name=category.name,
     )
