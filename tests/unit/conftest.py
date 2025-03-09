@@ -4,6 +4,7 @@ import pytest
 
 from src.domain.entities.user import UserEntity
 from src.domain.repositories.interfaces import (
+    IArticlesRepository,
     ICategoriesRepository,
     IUsersRepository,
 )
@@ -13,6 +14,7 @@ from src.domain.repositories.memory_association import (
 )
 from src.domain.repositories.memory_categories import MemoryCategoriesRepository
 from src.domain.repositories.memory_users import MemoryUsersRepository
+from src.domain.services.article import ArticleService
 from src.domain.services.password_hasher import PasswordHasherService
 from src.domain.services.user_authentication import UserAuthenticationService
 from src.domain.services.user_registration import UserRegistrationService
@@ -32,7 +34,7 @@ def categories_repository() -> ICategoriesRepository:
 def articles_repository(
     associations_repository: MemoryArticleCategoryAssociationsRepository,
     categories_repository: ICategoriesRepository,
-) -> MemoryArticlesRepository:
+) -> IArticlesRepository:
     return MemoryArticlesRepository(
         categories_repository=categories_repository,
         associations_repository=associations_repository,
@@ -90,3 +92,8 @@ def user_authentication_service(
         users_repository=users_repository,
         password_hasher=password_hasher,
     )
+
+
+@pytest.fixture
+def article_service(articles_repository: IArticlesRepository) -> ArticleService:
+    return ArticleService(articles_repository)
