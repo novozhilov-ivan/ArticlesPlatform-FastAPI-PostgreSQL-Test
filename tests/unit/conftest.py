@@ -4,7 +4,6 @@ import pytest
 
 from src.domain.entities.user import UserEntity
 from src.domain.repositories.interfaces import (
-    IArticlesRepository,
     ICategoriesRepository,
     IUsersRepository,
 )
@@ -32,8 +31,12 @@ def categories_repository() -> ICategoriesRepository:
 @pytest.fixture
 def articles_repository(
     associations_repository: MemoryArticleCategoryAssociationsRepository,
-) -> IArticlesRepository:
-    return MemoryArticlesRepository(associations_repository=associations_repository)
+    categories_repository: ICategoriesRepository,
+) -> MemoryArticlesRepository:
+    return MemoryArticlesRepository(
+        categories_repository=categories_repository,
+        associations_repository=associations_repository,
+    )
 
 
 @pytest.fixture

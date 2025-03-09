@@ -19,7 +19,7 @@ def category() -> CategoryEntity:
     return CategoryEntity(name="name")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def article(user: UserEntity) -> ArticleEntity:
     return ArticleEntity(
         author_oid=user.oid,
@@ -28,7 +28,7 @@ def article(user: UserEntity) -> ArticleEntity:
     )
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def association(
     article: ArticleEntity,
     category: CategoryEntity,
