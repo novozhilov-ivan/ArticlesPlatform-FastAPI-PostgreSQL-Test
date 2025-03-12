@@ -6,6 +6,7 @@ from src.domain.entities.user import UserEntity
 from src.domain.repositories.interfaces import (
     IArticlesRepository,
     ICategoriesRepository,
+    ICommentsRepository,
     IUsersRepository,
 )
 from src.domain.repositories.memory_article import MemoryArticlesRepository
@@ -13,6 +14,7 @@ from src.domain.repositories.memory_association import (
     MemoryArticleCategoryAssociationsRepository,
 )
 from src.domain.repositories.memory_categories import MemoryCategoriesRepository
+from src.domain.repositories.memory_comments import MemoryCommentsRepository
 from src.domain.repositories.memory_users import MemoryUsersRepository
 from src.domain.services.article import ArticleService
 from src.domain.services.password_hasher import PasswordHasherService
@@ -44,6 +46,11 @@ def articles_repository(
 @pytest.fixture
 def associations_repository() -> MemoryArticleCategoryAssociationsRepository:
     return MemoryArticleCategoryAssociationsRepository()
+
+
+@pytest.fixture
+def comments_repository() -> ICommentsRepository:
+    return MemoryCommentsRepository()
 
 
 @pytest.fixture(scope="session")
