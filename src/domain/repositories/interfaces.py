@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from collections.abc import Sequence
 from uuid import UUID
 
 from src.domain.entities.article import ArticleEntity
@@ -48,10 +47,7 @@ class IUsersRepository(ABC):
 
 class ICommentsRepository(ABC):
     @abstractmethod
-    async def get_all_article_comments_by_article_oid(
-        self,
-        oid: UUID,
-    ) -> Sequence[CommentEntity]:
+    async def get_list_by_article_oid(self, article_oid: UUID) -> set[CommentEntity]:
         raise NotImplementedError
 
     @abstractmethod
@@ -59,5 +55,5 @@ class ICommentsRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def delete_by_oid(self, oid: CommentEntity) -> None:
+    async def delete_by_oid(self, oid: UUID) -> None:
         raise NotImplementedError
