@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 
 from src.domain.entities.user import UserEntity
-from src.domain.enums import UserStatus
 from src.domain.exceptions.user_authentication import (
     InvalidCredentialsException,
     UserIsBannedException,
 )
 from src.domain.repositories.interfaces import IUsersRepository
 from src.domain.services.password_hasher import PasswordHasherService
+from src.domain.types.statuses import UserStatus
 
 
 @dataclass

@@ -3,13 +3,13 @@ from dataclasses import replace
 import pytest
 
 from src.domain.entities.user import UserEntity
-from src.domain.enums import UserStatus
 from src.domain.exceptions.user_authentication import (
     InvalidCredentialsException,
     UserIsBannedException,
 )
 from src.domain.repositories.interfaces import IUsersRepository
 from src.domain.services.user_authentication import UserAuthenticationService
+from src.domain.types.statuses import UserStatus
 
 
 async def test_authenticate_valid_user(

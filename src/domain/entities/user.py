@@ -1,14 +1,15 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from src.domain.entities.base import BaseEntity
-from src.domain.enums import UserRoles, UserStatus
+from src.domain.types.roles import Role
+from src.domain.types.statuses import UserStatus
 
 
 @dataclass(eq=False, kw_only=True)
 class UserEntity(BaseEntity):
     nickname: str
     password: str
-    role: UserRoles = UserRoles.user
+    roles: set[Role] = field(default_factory=lambda: {Role.user})
     status: UserStatus = UserStatus.active
 
     def __eq__(self, other: object) -> bool:
