@@ -1,10 +1,9 @@
-from typing import Final
-
 from src.domain.types.permissions import Permission
+from src.domain.types.roles_permissions import RolesPermissions
 
 
-class PermissionGroups:
-    user_permissions: Final[frozenset[Permission]] = frozenset(
+def test_user_permissions():
+    assert RolesPermissions.user == frozenset(
         {
             Permission.delete_own_article,
             Permission.edit_own_article,
@@ -14,7 +13,9 @@ class PermissionGroups:
         },
     )
 
-    admin_permissions: Final[frozenset[Permission]] = frozenset(
+
+def test_admin_permissions():
+    assert RolesPermissions.admin == frozenset(
         {
             Permission.delete_any_article,
             Permission.edit_any_article,
@@ -24,5 +25,9 @@ class PermissionGroups:
             Permission.manage_users,
             Permission.ban_users,
         }
-        | user_permissions,
+        | RolesPermissions.user,
     )
+
+
+def test_user_permissions_subset_of_admin():
+    assert RolesPermissions.user.issubset(RolesPermissions.admin)
