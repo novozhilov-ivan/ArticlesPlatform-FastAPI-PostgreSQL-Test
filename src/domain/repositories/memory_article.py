@@ -5,6 +5,7 @@ from src.domain.entities.article import ArticleEntity
 from src.domain.repositories.interfaces import (
     IArticlesRepository,
     ICategoriesRepository,
+    ICommentsRepository,
 )
 from src.domain.repositories.memory_association import (
     MemoryArticleCategoryAssociationsRepository,
@@ -14,6 +15,7 @@ from src.domain.repositories.memory_association import (
 @dataclass(kw_only=True)
 class MemoryArticlesRepository(IArticlesRepository):
     categories_repository: ICategoriesRepository
+    comments_repository: ICommentsRepository
     associations_repository: MemoryArticleCategoryAssociationsRepository
     storage: set[ArticleEntity] = field(default_factory=set)
 
@@ -24,7 +26,7 @@ class MemoryArticlesRepository(IArticlesRepository):
         await self.categories_repository.create_many(article.categories)
         await self.associations_repository.create_many(article)
 
-    async def load_categories(self, article: ArticleEntity) -> ArticleEntity:
+    async def load_categories(self, article: ArticleEntity) -> None:
         categories_names = (
             await self.associations_repository.get_categories_names_by_article_oid(
                 article.oid
@@ -35,7 +37,10 @@ class MemoryArticlesRepository(IArticlesRepository):
             if category:
                 article.categories.add(category)
 
-        return article
+    async def load_comments(self, article: ArticleEntity) -> None:
+        article.comments = await self.comments_repository.get_list_by_article_oid(
+            article_oid=article.oid,
+        )
 
     async def get_by_oid(self, oid: UUID) -> ArticleEntity | None:
         try:
@@ -43,7 +48,10 @@ class MemoryArticlesRepository(IArticlesRepository):
         except StopIteration:
             return None
 
-        return await self.load_categories(article)
+        await self.load_categories(article)
+        await self.load_comments(article)
+
+        return article
 
     async def list(self) -> set[ArticleEntity]:
         return self.storage
