@@ -36,10 +36,12 @@ def categories_repository() -> ICategoriesRepository:
 def articles_repository(
     associations_repository: MemoryArticleCategoryAssociationsRepository,
     categories_repository: ICategoriesRepository,
+    comments_repository: ICommentsRepository,
 ) -> IArticlesRepository:
     return MemoryArticlesRepository(
         categories_repository=categories_repository,
         associations_repository=associations_repository,
+        comments_repository=comments_repository,
     )
 
 

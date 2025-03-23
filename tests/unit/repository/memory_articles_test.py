@@ -1,6 +1,7 @@
 from src.domain.entities.article import ArticleEntity
 from src.domain.entities.association import ArticleCategoryAssociationEntity
 from src.domain.entities.category import CategoryEntity
+from src.domain.entities.comment import CommentEntity
 from src.domain.repositories.interfaces import (
     IArticlesRepository,
 )
@@ -9,6 +10,7 @@ from src.domain.repositories.memory_association import (
     MemoryArticleCategoryAssociationsRepository,
 )
 from src.domain.repositories.memory_categories import MemoryCategoriesRepository
+from src.domain.repositories.memory_comments import MemoryCommentsRepository
 
 
 async def test_get_by_oid_article_in_empty_repository(
@@ -152,7 +154,7 @@ async def test_load_exist_categories_in_article(
     categories_repository.storage = {category}
     associations_repository.storage = {association}
 
-    article = await articles_repository.load_categories(article)
+    await articles_repository.load_categories(article)
 
     assert article.categories == {category}
 
@@ -165,6 +167,31 @@ async def test_load_non_exist_categories_in_article(
 ):
     associations_repository.storage = {association}
 
-    article = await articles_repository.load_categories(article)
+    await articles_repository.load_categories(article)
 
     assert not article.categories
+
+
+async def test_load_exist_comments_for_article(
+    article: ArticleEntity,
+    comment: CommentEntity,
+    articles_repository: MemoryArticlesRepository,
+    comments_repository: MemoryCommentsRepository,
+):
+    articles_repository.storage = {article}
+    comments_repository.storage = {comment}
+
+    await articles_repository.load_comments(article)
+
+    assert article.comments == {comment}
+
+
+async def test_load_non_exist_comments_for_article(
+    article: ArticleEntity,
+    articles_repository: MemoryArticlesRepository,
+):
+    articles_repository.storage = {article}
+
+    await articles_repository.load_comments(article)
+
+    assert not article.comments
