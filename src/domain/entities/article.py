@@ -3,6 +3,7 @@ from uuid import UUID
 
 from src.domain.entities.base import BaseEntity
 from src.domain.entities.category import CategoryEntity
+from src.domain.entities.comment import CommentEntity
 
 
 @dataclass(eq=False, kw_only=True)
@@ -11,6 +12,7 @@ class ArticleEntity(BaseEntity):
     title: str
     text: str
     categories: set[CategoryEntity] = field(default_factory=set)
+    comments: set[CommentEntity] = field(default_factory=set)
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, UUID):
